@@ -12,5 +12,9 @@ services:
         value: agent-control-messenger-backend
       - key: ACM_FRONTEND_ORIGIN
         sync: false
+      - key: ACM_ENV
+        value: production
+      - key: ACM_ALLOW_DEMO_BOOTSTRAP
+        value: 'false'
       - key: PORT
         value: 8000

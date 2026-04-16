@@ -46,6 +46,8 @@ def health() -> dict[str, str | bool]:
 
 @app.post('/demo/bootstrap', status_code=201)
 def bootstrap_demo(reset: bool = False) -> dict:
+    if not settings.demo_bootstrap_enabled:
+        raise HTTPException(status_code=403, detail='Demo bootstrap is disabled in production')
     return bootstrap_demo_data(store, reset=reset)
 
 

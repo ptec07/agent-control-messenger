@@ -17,7 +17,10 @@
 - 현재 프론트는 위 Render 백엔드를 사용한다.
 
 ### 데모 데이터
-운영/공개 환경에서는 `demo/bootstrap` 같은 상태 변경 엔드포인트를 외부에 그대로 노출하지 않는 것을 권장한다.
+운영/공개 환경에서는 `demo/bootstrap` 같은 상태 변경 엔드포인트를 외부에 그대로 노출하지 않도록 기본 차단한다.
+
+- `ACM_ENV=production` 이면 `POST /demo/bootstrap` 는 기본적으로 `403` 이다.
+- 운영 환경에서 꼭 필요할 때만 `ACM_ALLOW_DEMO_BOOTSTRAP=true` 를 명시적으로 설정한다.
 
 로컬 개발 환경에서 데모 데이터를 넣으려면:
 

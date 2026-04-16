@@ -23,6 +23,8 @@ def test_backend_deployment_files_exist_and_reference_healthcheck() -> None:
     assert service['env'] == 'docker'
     assert service['healthCheckPath'] == '/health'
     assert service['dockerfilePath'] == './backend/Dockerfile'
+    assert {'key': 'ACM_ENV', 'value': 'production'} in service['envVars']
+    assert {'key': 'ACM_ALLOW_DEMO_BOOTSTRAP', 'value': 'false'} in service['envVars']
 
 
 def test_backend_env_example_includes_public_origin_settings() -> None:
@@ -31,3 +33,5 @@ def test_backend_env_example_includes_public_origin_settings() -> None:
     assert 'ACM_FRONTEND_ORIGIN=' in env_example
     assert 'ACM_API_HOST=' in env_example
     assert 'ACM_API_PORT=' in env_example
+    assert 'ACM_ENV=' in env_example
+    assert 'ACM_ALLOW_DEMO_BOOTSTRAP=' in env_example
