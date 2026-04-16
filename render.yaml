@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: agent-control-messenger-backend
+    env: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    autoDeploy: false
+    healthCheckPath: /health
+    envVars:
+      - key: ACM_SERVICE_NAME
+        value: agent-control-messenger-backend
+      - key: ACM_FRONTEND_ORIGIN
+        sync: false
+      - key: PORT
+        value: 8000
