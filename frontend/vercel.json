@@ -1,5 +1,10 @@
 {
   "version": 2,
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index" }]
+  "rewrites": [
+    { "source": "/threads", "destination": "/" },
+    { "source": "/threads/(.*)", "destination": "/" },
+    { "source": "/approval-requests", "destination": "/" },
+    { "source": "/(.*)", "destination": "/index" }
+  ]
 }

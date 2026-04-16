@@ -2,6 +2,36 @@
 
 운영자 관제 UI가 있는 최소 기능 메신저/승인 시스템 프로토타입.
 
+## 현재 배포 상태
+
+### 운영 프론트엔드
+- Vercel: `https://agent-control-messenger-frontend.vercel.app`
+- 직접 진입 확인 완료:
+  - `/threads`
+  - `/threads/:id`
+  - `/approval-requests`
+
+### 운영 백엔드
+- Render: `https://agent-control-messenger-backend-git.onrender.com`
+- health check: `/health`
+- 현재 프론트는 위 Render 백엔드를 사용한다.
+
+### 데모 데이터
+운영/공개 환경에서는 `demo/bootstrap` 같은 상태 변경 엔드포인트를 외부에 그대로 노출하지 않는 것을 권장한다.
+
+로컬 개발 환경에서 데모 데이터를 넣으려면:
+
+```bash
+curl -X POST http://127.0.0.1:8000/demo/bootstrap
+```
+
+현재 확인된 데모 화면:
+- `/threads`
+- `/threads/<thread_id>`
+- `/approval-requests`
+
+> 현재 백엔드는 `InMemoryStore` 기반이므로 재배포/재시작 시 상태가 초기화된다.
+
 ## 실행 방법
 
 ### 1) 백엔드
@@ -21,8 +51,9 @@ PYTHONPATH=. python -m app
 - `backend/render.yaml`
 - `render.yaml` (repo 루트 Render blueprint)
 
-#### Render 배포 메모
-- Render Web Service 기준으로 `backend/render.yaml`을 참고하면 된다.
+#### 백엔드 배포 메모
+- 현재 운영 백엔드는 Render Git-backed 서비스 `agent-control-messenger-backend-git` 이다.
+- 운영 URL: `https://agent-control-messenger-backend-git.onrender.com`
 - health check 경로는 `/health`
 - 공개 프론트 주소를 `ACM_FRONTEND_ORIGIN` 환경 변수로 넣어야 한다.
 
@@ -52,10 +83,14 @@ npm run dev
 ### Vercel 프론트 + 별도 백엔드 배포
 이 프로젝트는 **프론트만 Vercel**, **백엔드는 별도 호스팅(Render/Railway/Fly.io/VPS 등)** 구조를 권장한다.
 
+#### 현재 운영 URL
+- 프론트: `https://agent-control-messenger-frontend.vercel.app`
+- 백엔드: `https://agent-control-messenger-backend-git.onrender.com`
+
 #### 프론트(Vercel)
 - 배포 루트: `frontend/`
 - Vercel 설정 파일: `frontend/vercel.json`
-- SPA 직접 진입(`/threads`, `/approval-requests`, `/threads/:id`)을 위해 모든 경로를 `index.html`로 rewrite 한다.
+- SPA 직접 진입(`/threads`, `/approval-requests`, `/threads/:id`)을 위해 route별 rewrite와 fallback build(`dist/404.html`)를 함께 사용한다.
 
 #### Vercel 환경 변수
 Vercel 프로젝트에 아래 환경 변수를 넣으면 된다.

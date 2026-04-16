@@ -16,6 +16,11 @@ describe('vercel frontend deployment config', () => {
     expect(config.version).toBe(2)
     expect(config.cleanUrls).toBeUndefined()
     expect(config.outputDirectory).toBe('dist')
-    expect(config.rewrites).toEqual([{ source: '/(.*)', destination: '/index' }])
+    expect(config.rewrites).toEqual([
+      { source: '/threads', destination: '/' },
+      { source: '/threads/(.*)', destination: '/' },
+      { source: '/approval-requests', destination: '/' },
+      { source: '/(.*)', destination: '/index' },
+    ])
   })
 })
