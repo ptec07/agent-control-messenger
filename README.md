@@ -60,6 +60,22 @@ PYTHONPATH=. python -m app
 - health check 경로는 `/health`
 - 공개 프론트 주소를 `ACM_FRONTEND_ORIGIN` 환경 변수로 넣어야 한다.
 
+#### Render 운영 env 체크리스트
+운영 Render 서비스에는 최소한 아래 값을 넣는다.
+
+```bash
+ACM_SERVICE_NAME=agent-control-messenger-backend-git
+ACM_FRONTEND_ORIGIN=https://agent-control-messenger-frontend.vercel.app
+ACM_ENV=production
+ACM_ALLOW_DEMO_BOOTSTRAP=false
+PORT=8000
+```
+
+운영 반영 후 확인 항목:
+- `GET /health` → `200`
+- `POST /demo/bootstrap` → `403`
+- 응답 본문 → `{"detail":"Demo bootstrap is disabled in production"}`
+
 #### 일반 Docker 실행 예시
 ```bash
 cd backend
